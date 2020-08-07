@@ -37,6 +37,13 @@ $Settings =
             # 4.3.1では動かないが、20200806-2c35797では動いた
             # 違いが分からない
         )
+        "hevcnvenc_preset_2" =
+        @(
+            "-c:v hevc_nvenc -preset:v slow -profile:v main10 -rc:v constqp -rc-lookahead 32 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le",
+            "-c:v hevc_nvenc -preset:v p5 -profile:v main10 -rc:v constqp -rc-lookahead 32 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le",
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 32 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # VMAFの値はp5 < slow < p7で、少ししか変わらなかった
+        )
     }
 }
 
@@ -144,8 +151,8 @@ $Settings.TestArguments.$Test | ForEach-Object {
     # encode
     Invoke-Process -File $Settings.FilePath -Arg (Invoke-Command -ScriptBlock $Settings.DefaultArgument)
 
-    # vmaf
-    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i input.mp4 -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
+    # ssim
+    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats i input.mp4 -i output.mp4 -filter_complex ssim -an -f null -"
 
     # file size
     "$([math]::round((Get-ChildItem -LiteralPath output.mp4).Length/1MB,1))MB"
