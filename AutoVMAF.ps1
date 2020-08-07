@@ -93,6 +93,13 @@ $Settings =
             # 全く変化なし
             # audのみファイルサイズだけ少し大きくなったが、これは品質に影響する引数ではないらしい
         )
+        "hevcnvenc_weightp" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 0 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 1 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 0 -pix_fmt yuv420p10le"
+            # [hevc_nvenc @ 000001af8687ff40] InitializeEncoder failed: invalid param (8): Weighted prediction is not supported with BFrames.
+            # -weighted_pred 1でファイルサイズはそのままスコアが下がった
+        )
     }
 }
 
