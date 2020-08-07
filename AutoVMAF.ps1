@@ -44,6 +44,12 @@ $Settings =
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 32 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le"
             # VMAFの値はp5 < slow < p7で、少ししか変わらなかった
         )
+        "hevcnvenc_tier" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -tier main -rc:v constqp -rc-lookahead 32 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le",
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -tier high -rc:v constqp -rc-lookahead 32 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # 全く変わらない
+        )
     }
 }
 
