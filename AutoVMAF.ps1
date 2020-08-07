@@ -57,6 +57,13 @@ $Settings =
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 128 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le"
             # 0と32では異なるが、値を大きくしても全く変わらない
         )
+        "hevcnvenc_surfaces" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -surfaces 0 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le",
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -surfaces 2 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le",
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -surfaces 8 -b_ref_mode 2 -init_qpI 22 -init_qpP 24 -init_qpB 25 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # 全く変わらない
+        )
     }
 }
 
