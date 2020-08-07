@@ -154,6 +154,9 @@ $Settings.TestArguments.$Test | ForEach-Object {
     # ssim
     Invoke-Process -File $Settings.FilePath -Arg "-y -nostats i input.mp4 -i output.mp4 -filter_complex ssim -an -f null -"
 
+    # vmaf
+    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i input.mp4 -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
+
     # file size
     "$([math]::round((Get-ChildItem -LiteralPath output.mp4).Length/1MB,1))MB"
 }
