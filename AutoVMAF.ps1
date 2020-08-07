@@ -158,7 +158,7 @@ $Settings.TestArguments.$Test | ForEach-Object {
     Invoke-Process -File $Settings.FilePath -Arg (Invoke-Command -ScriptBlock $Settings.DefaultArgument)
 
     # ssim
-    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats i input.mp4 -i output.mp4 -filter_complex ssim -an -f null -"
+    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i input.mp4 -i output.mp4 -filter_complex ssim -an -f null -"
 
     # vmaf
     Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i input.mp4 -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
