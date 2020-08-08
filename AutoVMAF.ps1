@@ -390,6 +390,50 @@ $Settings =
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv444p10le"
             # yuv420pと同等のファイルサイズでyuv420p10leの方がスコアが良く、yuv444pとyuv444p10leはやっぱり微妙だった
         )
+        "hevcnvenc_qpqminqmax" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -qp 0 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -qp 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -qmin 0 -qmax 0 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -qmin 22 -qmax 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            # 全部無視された
+        )
+        "hevcnvenc_qpqminqmax_2" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qp 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 18 -qmax 24 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -qmin 18 -qmax 24  -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            # init_qpを外せば動作した
+        )
+        "hevcnvenc_qp" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qp 21 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qp 20 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qp 19 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qp 18 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qp 17 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            # qpはinit_qpよりスコアに対してのファイルサイズが大きかった
+        )
+        "hevcnvenc_qminqmax" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 16 -qmax 16 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 16 -qmax 18 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 16 -qmax 20 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 16 -qmax 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 18 -qmax 16 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 18 -qmax 18 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 18 -qmax 20 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 18 -qmax 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 20 -qmax 16 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 20 -qmax 18 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 20 -qmax 20 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 20 -qmax 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 22 -qmax 16 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 22 -qmax 18 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 22 -qmax 20 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -qmin 22 -qmax 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le"
+            # constqpでqmin,qmaxは無視される。無駄なことをしてしまった...
+        )
     }
 }
 
