@@ -316,6 +316,13 @@ $Settings =
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -b_ref_mode 2 -init_qpI 26 -init_qpP 26 -init_qpB 26 -g 60 -bf 3 -pix_fmt yuv420p10le"
             # -init_qpI 22 -init_qpP 22 -init_qpB 22 が効率良さそう。-init_qpI 22 -init_qpP 20 -init_qpB 22 も良いし、恐らく -init_qpI 22 -init_qpP 21 -init_qpB 22 も良いと思われる
         )
+        "hevcnvenc_brefmode" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -b_ref_mode 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -b_ref_mode 2 -init_qpI 22 -init_qpP 22 -init_qpB 22 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -b_ref_mode 1 -init_qpI 22 -init_qpP 22 -init_qpB 22 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # b_ref_modeは品質に対してのファイルサイズが小さくなるので有効にしたほうが良い。更に2(middle)より1(each)の方が良いことが分かった。
+        )
     }
 }
 
