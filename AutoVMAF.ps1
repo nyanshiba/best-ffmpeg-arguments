@@ -323,6 +323,26 @@ $Settings =
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -b_ref_mode 1 -init_qpI 22 -init_qpP 22 -init_qpB 22 -g 60 -bf 3 -pix_fmt yuv420p10le"
             # b_ref_modeは品質に対してのファイルサイズが小さくなるので有効にしたほうが良い。更に2(middle)より1(each)の方が良いことが分かった。
         )
+        "hevcnvenc_dpbsize" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 0 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 6 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 12 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # 4が効率良さそう。6以降が変わっていない。
+        )
+        "hevcnvenc_dpbsize_2" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 3 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 5 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 6 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 7 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 8 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # 5,6,7,8はファイルサイズ・VMAF共に全く変わらない。4が良い。
+        )
     }
 }
 
@@ -437,7 +457,7 @@ $Settings.TestArguments.$Test | ForEach-Object {
     Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i input.mp4 -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
 
     # file size
-    "$([math]::round((Get-ChildItem -LiteralPath output.mp4).Length/1MB,1))MB"
+    "$([math]::round((Get-ChildItem -LiteralPath output.mp4).Length/1MB,2))MB"
 }
 
 # ログ取り停止
