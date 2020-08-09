@@ -9,10 +9,11 @@ param
 $Settings =
 @{
     LogsDir = "./logs"
+    InputFileName = "200807.avi"
     FilePath = "ffmpeg"
     DefaultArgument =
     ({
-        "-y -nostats -analyzeduration 30M -probesize 100M -fflags +discardcorrupt -i input.mp4 -an $_ -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart output.mp4"
+        "-y -nostats -analyzeduration 30M -probesize 100M -fflags +discardcorrupt -i $($Settings.InputFileName) -an $_ -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart output.mp4"
     })
     TestArguments =
     @{
@@ -372,6 +373,7 @@ $Settings =
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 500 -bf 3 -pix_fmt yuv420p10le"
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 600 -bf 3 -pix_fmt yuv420p10le"
             # 今まで使っていた60は圧縮率に対する品質という観点では少々不適切で、350と450が良かった。
+            # いや、複数のソースを試したところ、15や30は非効率だったが、60からはばらつきがあったので、60を選ぶのが適切だった
         )
         "hevcnvenc_bframes" =
         @(
@@ -533,7 +535,7 @@ function Invoke-Process
 }
 
 # ログ取り開始
-Start-Transcript -LiteralPath "$($Settings.LogsDir)/$Test.log" -UseMinimalHeader
+Start-Transcript -LiteralPath "$($Settings.LogsDir)/${Test}_$($Settings.InputFileName).log" -UseMinimalHeader
 
 # スクリプトに渡された引数に一致するテストを実行
 $Settings.TestArguments.$Test | ForEach-Object {
@@ -542,10 +544,10 @@ $Settings.TestArguments.$Test | ForEach-Object {
     Invoke-Process -File $Settings.FilePath -Arg (Invoke-Command -ScriptBlock $Settings.DefaultArgument)
 
     # ssim
-    # Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i input.mp4 -i output.mp4 -filter_complex ssim -an -f null -"
+    # Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName) -i output.mp4 -filter_complex ssim -an -f null -"
 
     # vmaf
-    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i input.mp4 -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
+    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i $($Settings.InputFileName) -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
 
     # file size
     "$([math]::round((Get-ChildItem -LiteralPath output.mp4).Length/1MB,2))MB"
