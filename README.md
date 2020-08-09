@@ -34,5 +34,5 @@ libswresample   3.  8.100 /  3.  8.100
 libpostproc    55.  8.100 / 55.  8.100
 ```
 ```
-ffmpeg -i input.mp4 -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 350 -bf 3 -pix_fmt yuv420p10le output.mp4
+ffmpeg -i input.mp4 -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le output.mp4
 ```
