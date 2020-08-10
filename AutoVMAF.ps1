@@ -530,6 +530,33 @@ $Settings =
             "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -init_qpI 24 -init_qpP 24 -init_qpB 24 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
             # fieldmatchは神
         )
+        "hevcnvenc_vbrcq" =
+        @(
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 0 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 5 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 10 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 15 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 20 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 25 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 30 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 35 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 40 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 45 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 50 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # [hevc_nvenc @ 000001eb66e50bc0] InitializeEncoder failed: invalid param (8): Preset P1 to P7 not supported with older 2 Pass RC Modes(CBR_HQ, VBR_HQ) and cbr lowdelayEnable NV_ENC_RC_PARAMS::multiPass flag for two pass encoding and set
+        )
+        "hevcnvenc_vbrcq_2" =
+        @(
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 21 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 23 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 24 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 26 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 27 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 28 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-vf fieldmatch -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 0 -weighted_pred 0 -cq 29 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # vbrモードの方がVMAFに強いかもしれないが、どっちもどっち。constqpはvbr cq値を下げても出ないビットレート及びVMAFスコアを出すこともできるようだ。
+        )
     }
 }
 
