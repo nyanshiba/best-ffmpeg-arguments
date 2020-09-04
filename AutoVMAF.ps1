@@ -18,6 +18,14 @@ $Settings =
     TestArguments =
     @{
         # h264_nvenc
+        # 手始めにhevc_nvenc最強設定と同様の引数を使用して検証
+        "h264nvenc_hevcnvencarg" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 2 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p"
+            # VMAF score: 96.787031 149.07MB hevc_nvenc https://github.com/nyanshiba/best-ffmpeg-arguments#hevc_nvenc-constqp
+            # VMAF score: 96.517079 176.04MB h264nvenc_hevcnvencarg
+            # VMAFはhevc_nvencと同等、ファイルサイズは大きくなった
+        )
     }
 }
 
