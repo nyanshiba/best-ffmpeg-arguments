@@ -237,6 +237,12 @@ $Settings =
             "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 4 -pix_fmt yuv420p"
             # 念のため-g 120でも-bf 0~4をテストしたが、やはり1~3が適切に見える。
         )
+        "h264nvenc_profile" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v baseline -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v main -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            # ファイルサイズ・VMAF比は圧倒的にhigh profileが優秀だった。特にbaselineは全く使い物にならない。
+        )
     }
 }
 
