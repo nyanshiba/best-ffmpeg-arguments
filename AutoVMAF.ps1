@@ -212,6 +212,22 @@ $Settings =
             "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 60 -bf 4 -pix_fmt yuv420p"
             # bframes 4は非効率。2が効率がよい。
         )
+        "h264nvenc_gop" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 15 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 30 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 90 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 150 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 200 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 300 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 400 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 500 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 600 -bf 2 -pix_fmt yuv420p"
+            # GOP 15は非常に効率が悪く、60が実用ラインというのはhevc_nvencと同様だが、200までVMAFが変わらず綺麗にファイルサイズが縮んでいるのが特徴的だ。それ以降は全く値が変わらない。
+            # 実用性も鑑みて120フレーム(4秒)が妥当だと思う。
+        )
     }
 }
 
