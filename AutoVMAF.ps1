@@ -140,6 +140,18 @@ $Settings =
             "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -b_ref_mode 2 -dpb_size 0 -g 60 -bf 3 -pix_fmt yuv420p"
             # [h264_nvenc @ 0000020b452a7bc0] InitializeEncoder failed: invalid param (8): Weighted Prediction not supported with B-frames.
         )
+        "h264nvenc_coder" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder default -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder auto -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder 1 -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder 2 -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder cavlc -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder ac -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -weighted_pred 0 -coder vlc -b_ref_mode 2 -dpb_size 0 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            # VMAFスコアは全て変わらなかった。2, cavlc, vlcはファイルサイズが大きくなった。
+        )
     }
 }
 
