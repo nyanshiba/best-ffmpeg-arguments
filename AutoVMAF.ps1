@@ -109,6 +109,13 @@ $Settings =
             # グラフにプロットすると、hevcnvenc_initqpIPBと同様に直角双曲線になったが、若干誤差レベルの異常値があった
             # -init_qpI 22 -init_qpP 22 -init_qpB 22で良い気がするが、-init_qpI 22 -init_qpP 22 -init_qpB 26の結果が良かったのでひとまずこれを使う
         )
+        "h264nvenc_multipass" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 26 -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 26 -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 26 -b_ref_mode 2 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p"
+            # multipassは有意な差が無かった
+        )
     }
 }
 
