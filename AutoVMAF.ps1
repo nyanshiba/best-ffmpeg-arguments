@@ -134,6 +134,12 @@ $Settings =
             # dpb_size>=bframesだった [h264_nvenc @ 000001bf14337bc0] InitializeEncoder failed: invalid param (8): DPB size should be greater than or equal to 3 for B as reference.
             # 有意な差が無かった。-dpb_size 0で良いと思われる。
         )
+        "h264nvenc_weightp" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 26 -b_ref_mode 2 -dpb_size 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 1 -init_qpI 22 -init_qpP 22 -init_qpB 26 -b_ref_mode 2 -dpb_size 0 -g 60 -bf 3 -pix_fmt yuv420p"
+            # [h264_nvenc @ 0000020b452a7bc0] InitializeEncoder failed: invalid param (8): Weighted Prediction not supported with B-frames.
+        )
     }
 }
 
