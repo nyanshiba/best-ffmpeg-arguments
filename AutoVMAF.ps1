@@ -265,6 +265,7 @@ $Settings =
             "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 22 -init_qpP 23 -init_qpB 26 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p"
             # lossless,losslesshpはAdaptive quantizationでは動作しない [h264_nvenc @ 000001efa3bc8480] InitializeEncoder failed: invalid param (8): Adaptive quantization is not supported with lossless encoding
             # slow,medium,hq,bd,p4が同値だった。使うならp4-7だと思う。
+            # VMAF・サイズに加え処理速度を比較した結果、配信やリアルタイムエンコードなら品質・処理速度・サイズのバランスが良いp4(medium)かllhq、普段のエンコは処理速度を犠牲にして最高品質を突き詰めるp7が良いと思った。
         )
         "h264nvenc_tune" =
         @(
