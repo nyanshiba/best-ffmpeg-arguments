@@ -39,7 +39,7 @@ libpostproc    55.  8.100 / 55.  8.100
 ffmpeg -i input.mp4 -c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 22 -init_qpP 22 -init_qpB 22 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart output.mp4
 ```
 
-## h264_nvenc constqp
+## h264_nvenc vbr
 
 ```
 ffmpeg version N-98966-g7a89f382a3-g0271098e6c+4 Copyright (c) 2000-2020 the FFmpeg developers
@@ -54,6 +54,22 @@ ffmpeg version N-98966-g7a89f382a3-g0271098e6c+4 Copyright (c) 2000-2020 the FFm
   libswresample   3.  8.100 /  3.  8.100
   libpostproc    55.  8.100 / 55.  8.100
 ```
+
+```
+ffmpeg -i input.mp4 -c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart output.mp4
+```
+
+|Arguments|VMAF|Size(MB)|
+|:-|:-|:-|
+|hevc_nvenc constqp I22 P22 B22|96.787071|149.07|
+|h264_nvenc vbr cq23|96.524121|161.22|
+|h264_nvenc vbr cq24|96.269210|143.16|
+|h264_nvenc vbr cq25|95.905473|125.48|
+|h264_nvenc vbr cq26|95.490610|110.12|
+|h264_nvenc vbr cq27|94.976200|96.09|
+
+## h264_nvenc constqp
+
 ```
 ffmpeg -i input.mp4 -c:v h264_nvenc -preset:v p7 -profile:v high -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -init_qpI 21 -init_qpP 21 -init_qpB 25 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart output.mp4
 ```
@@ -62,17 +78,17 @@ Other excellent parameter lists
 
 |Arguments|VMAF|Size(MB)|
 |:-|:-|:-|
-|hevc_nvenc I22 P22 B22|96.787071|149.07|
-|h264_nvenc I21 P21 B25|96.570217|169.41|
-|h264_nvenc I21 P21 B26|96.524021|166.68|
-|h264_nvenc I22 P22 B25|96.372320|155.69|
-|h264_nvenc I22 P22 B26|96.262820|148.17|
-|h264_nvenc I22 P22 B27|96.215174|146.14|
-|h264_nvenc I23 P23 B26|95.926876|132.42|
-|h264_nvenc I23 P23 B27|95.809517|127.02|
-|h264_nvenc I22 P23 B28|95.768000|125.81|
-|h264_nvenc I23 P23 B28|95.751297|125.26|
-|h264_nvenc I23 P24 B28|95.362693|110.38|
-|h264_nvenc I22 P25 B29|94.951748|99.1|
-|h264_nvenc I25 P25 B30|94.846410|96.82|
-|h264_nvenc I25 P26 B30|94.259133|83.72|
+|hevc_nvenc constqp I22 P22 B22|96.787071|149.07|
+|h264_nvenc constqp I21 P21 B25|96.570217|169.41|
+|h264_nvenc constqp I21 P21 B26|96.524021|166.68|
+|h264_nvenc constqp I22 P22 B25|96.372320|155.69|
+|h264_nvenc constqp I22 P22 B26|96.262820|148.17|
+|h264_nvenc constqp I22 P22 B27|96.215174|146.14|
+|h264_nvenc constqp I23 P23 B26|95.926876|132.42|
+|h264_nvenc constqp I23 P23 B27|95.809517|127.02|
+|h264_nvenc constqp I22 P23 B28|95.768000|125.81|
+|h264_nvenc constqp I23 P23 B28|95.751297|125.26|
+|h264_nvenc constqp I23 P24 B28|95.362693|110.38|
+|h264_nvenc constqp I22 P25 B29|94.951748|99.1|
+|h264_nvenc constqp I25 P25 B30|94.846410|96.82|
+|h264_nvenc constqp I25 P26 B30|94.259133|83.72|
