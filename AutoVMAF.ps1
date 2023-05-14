@@ -9,11 +9,11 @@ param
 $Settings =
 @{
     LogsDir = "./logs"
-    InputFileName = "200808.avi"
+    InputFileName = "230323.mov"
     FilePath = "ffmpeg"
     DefaultArgument =
     ({
-        "-y -nostats -analyzeduration 30M -probesize 100M -fflags +discardcorrupt -i $($Settings.InputFileName) -an $_ -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart output.mp4"
+        "-y -nostats -hwaccel nvdec -i $($Settings.InputFileName) -an $_ -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart $($Settings.InputFileName).mp4"
     })
     TestArguments =
     @{
@@ -1069,13 +1069,13 @@ $Settings.TestArguments.$Test | ForEach-Object {
     Invoke-Process -File $Settings.FilePath -Arg (Invoke-Command -ScriptBlock $Settings.DefaultArgument)
 
     # ssim
-    # Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName) -i output.mp4 -filter_complex ssim -an -f null -"
+    # Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName) -i $($Settings.InputFileName).mp4 -filter_complex ssim -an -f null -"
 
     # vmaf
-    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i $($Settings.InputFileName) -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
+    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName).mp4 -i $($Settings.InputFileName) -filter_complex libvmaf=model=version=vmaf_v0.6.1neg\\:name=vmaf_neg -an -f null -"
 
     # file size
-    "$([math]::round((Get-ChildItem -LiteralPath output.mp4).Length/1MB,2))MB"
+    # "$([math]::round((Get-ChildItem -LiteralPath $($Settings.InputFileName).mp4).Length/1MB,2))MB"
 }
 
 # ログ取り停止
