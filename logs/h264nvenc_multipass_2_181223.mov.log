@@ -1,0 +1,327 @@
+**********************
+PowerShell transcript start
+Start time: 20230515224957
+**********************
+Transcript started, output file is ./logs/h264nvenc_multipass_2_181223.mov.log
+DEBUG Invoke-Process
+File: ffmpeg
+Arg: -y -nostats -hwaccel nvdec -i 181223.mov -an -c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart 181223.mov.mp4
+ArgList:
+
+ffmpeg version N-109952-g52a0852ae6-20230302 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (crosstool-NG 1.25.0.90_cf9beb1)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-nonfree --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --enable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --disable-libmfx --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230302
+  libavcodec     60.  5.100 / 60.  5.100
+  libavformat    60.  4.100 / 60.  4.100
+  libavdevice    60.  2.100 / 60.  2.100
+  libavfilter     9.  4.100 /  9.  4.100
+  libswscale      7.  2.100 /  7.  2.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+  libavutil      58.  3.100 / 58.  3.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov':
+  Metadata:
+    major_brand     : qt  
+    minor_version   : 512
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 45174 kb/s
+  Stream #0:0[0x1]: Video: dnxhd (DNXHR LB) (AVdh / 0x68645641), yuv422p(tv, bt709), 1920x1080, 45174 kb/s, SAR 1:1 DAR 16:9, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 dnxhd
+Stream mapping:
+  Stream #0:0 -> #0:0 (dnxhd (native) -> h264 (h264_nvenc))
+Press [q] to stop, [?] for help
+Output #0, mp4, to '181223.mov.mp4':
+  Metadata:
+    major_brand     : qt  
+    minor_version   : 512
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Stream #0:0: Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 29.97 fps, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 h264_nvenc
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[mp4 @ 0000025c7ad67900] Starting second pass: moving the moov atom to the beginning of the file
+frame= 2458 fps=117 q=21.0 Lsize=  112041kB time=00:01:21.91 bitrate=11204.8kbits/s speed= 3.9x    
+video:112011kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.026921%
+DEBUG ExitCode: 0
+DEBUG Invoke-Process
+File: ffmpeg
+Arg: -y -nostats -i 181223.mov.mp4 -i 181223.mov -filter_complex libvmaf=model=version=vmaf_v0.6.1neg\\:name=vmaf_neg -an -f null -
+ArgList:
+
+ffmpeg version N-109952-g52a0852ae6-20230302 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (crosstool-NG 1.25.0.90_cf9beb1)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-nonfree --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --enable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --disable-libmfx --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230302
+  libavutil      58.  3.100 / 58.  3.100
+  libavcodec     60.  5.100 / 60.  5.100
+  libavformat    60.  4.100 / 60.  4.100
+  libavdevice    60.  2.100 / 60.  2.100
+  libavfilter     9.  4.100 /  9.  4.100
+  libswscale      7.  2.100 /  7.  2.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov.mp4':
+  Metadata:
+    major_brand     : isom
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 11191 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 11188 kb/s, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.5.100 h264_nvenc
+    minor_version   : 512
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov':
+  Metadata:
+    major_brand     : qt  
+    minor_version   : 512
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 45174 kb/s
+  Stream #1:0[0x1]: Video: dnxhd (DNXHR LB) (AVdh / 0x68645641), yuv422p(tv, bt709), 1920x1080, 45174 kb/s, SAR 1:1 DAR 16:9, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 dnxhd
+Stream mapping:
+  Stream #0:0 (h264) -> libvmaf
+  Stream #1:0 (dnxhd) -> libvmaf
+  libvmaf:default -> Stream #0:0 (wrapped_avframe)
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.4.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 29.97 fps, 29.97 tbn
+    Metadata:
+      encoder         : Lavc60.5.100 wrapped_avframe
+frame= 2458 fps= 10 q=-0.0 Lsize=N/A time=00:01:21.98 bitrate=N/A speed=0.336x    
+video:1152kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[Parsed_libvmaf_0 @ 0000013e90c7d640] VMAF score: 96.078723
+DEBUG ExitCode: 0
+DEBUG Invoke-Process
+File: ffmpeg
+Arg: -y -nostats -hwaccel nvdec -i 181223.mov -an -c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart 181223.mov.mp4
+ArgList:
+
+ffmpeg version N-109952-g52a0852ae6-20230302 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (crosstool-NG 1.25.0.90_cf9beb1)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-nonfree --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --enable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --disable-libmfx --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230302
+  libavutil      58.  3.100 / 58.  3.100
+  libavcodec     60.  5.100 / 60.  5.100
+  libavformat    60.  4.100 / 60.  4.100
+  libavdevice    60.  2.100 / 60.  2.100
+  libavfilter     9.  4.100 /  9.  4.100
+  libswscale      7.  2.100 /  7.  2.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov':
+  Metadata:
+    major_brand     : qt  
+    minor_version   : 512
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 45174 kb/s
+  Stream #0:0[0x1]: Video: dnxhd (DNXHR LB) (AVdh / 0x68645641), yuv422p(tv, bt709), 1920x1080, 45174 kb/s, SAR 1:1 DAR 16:9, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 dnxhd
+Stream mapping:
+  Stream #0:0 -> #0:0 (dnxhd (native) -> h264 (h264_nvenc))
+Press [q] to stop, [?] for help
+Output #0, mp4, to '181223.mov.mp4':
+  Metadata:
+    major_brand     : qt  
+    minor_version   : 512
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Stream #0:0: Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 29.97 fps, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 h264_nvenc
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[mp4 @ 000001f49d587900] Starting second pass: moving the moov atom to the beginning of the file
+frame= 2458 fps=198 q=21.0 Lsize=  110841kB time=00:01:21.91 bitrate=11084.8kbits/s speed=6.61x    
+video:110811kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.027209%
+DEBUG ExitCode: 0
+DEBUG Invoke-Process
+File: ffmpeg
+Arg: -y -nostats -i 181223.mov.mp4 -i 181223.mov -filter_complex libvmaf=model=version=vmaf_v0.6.1neg\\:name=vmaf_neg -an -f null -
+ArgList:
+
+ffmpeg version N-109952-g52a0852ae6-20230302 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (crosstool-NG 1.25.0.90_cf9beb1)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-nonfree --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --enable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --disable-libmfx --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230302
+  libavutil      58.  3.100 / 58.  3.100
+  libavcodec     60.  5.100 / 60.  5.100
+  libavformat    60.  4.100 / 60.  4.100
+  libavdevice    60.  2.100 / 60.  2.100
+  libavfilter     9.  4.100 /  9.  4.100
+  libswscale      7.  2.100 /  7.  2.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 11071 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 11068 kb/s, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.5.100 h264_nvenc
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov':
+  Metadata:
+    minor_version   : 512
+    compatible_brands: qt  
+    major_brand     : qt  
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 45174 kb/s
+  Stream #1:0[0x1]: Video: dnxhd (DNXHR LB) (AVdh / 0x68645641), yuv422p(tv, bt709), 1920x1080, 45174 kb/s, SAR 1:1 DAR 16:9, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 dnxhd
+Stream mapping:
+  libvmaf:default -> Stream #0:0 (wrapped_avframe)
+Press [q] to stop, [?] for help
+  Stream #0:0 (h264) -> libvmaf
+  Stream #1:0 (dnxhd) -> libvmaf
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : isom
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.4.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 29.97 fps, 29.97 tbn
+    Metadata:
+    minor_version   : 512
+      encoder         : Lavc60.5.100 wrapped_avframe
+frame= 2458 fps=9.4 q=-0.0 Lsize=N/A time=00:01:21.98 bitrate=N/A speed=0.313x    
+video:1152kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[Parsed_libvmaf_0 @ 000001b22a628940] VMAF score: 96.057422
+DEBUG ExitCode: 0
+DEBUG Invoke-Process
+File: ffmpeg
+Arg: -y -nostats -hwaccel nvdec -i 181223.mov -an -c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 2 -g 120 -bf 2 -pix_fmt yuv420p -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart 181223.mov.mp4
+ArgList:
+
+ffmpeg version N-109952-g52a0852ae6-20230302 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (crosstool-NG 1.25.0.90_cf9beb1)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-nonfree --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --enable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --disable-libmfx --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230302
+  libavutil      58.  3.100 / 58.  3.100
+  libavcodec     60.  5.100 / 60.  5.100
+  libavformat    60.  4.100 / 60.  4.100
+  libavdevice    60.  2.100 / 60.  2.100
+  libavfilter     9.  4.100 /  9.  4.100
+  libswscale      7.  2.100 /  7.  2.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov':
+    major_brand     : qt  
+    minor_version   : 512
+  Metadata:
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 45174 kb/s
+  Stream #0:0[0x1]: Video: dnxhd (DNXHR LB) (AVdh / 0x68645641), yuv422p(tv, bt709), 1920x1080, 45174 kb/s, SAR 1:1 DAR 16:9, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 dnxhd
+Stream mapping:
+  Stream #0:0 -> #0:0 (dnxhd (native) -> h264 (h264_nvenc))
+Press [q] to stop, [?] for help
+Output #0, mp4, to '181223.mov.mp4':
+    major_brand     : qt  
+    minor_version   : 512
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Stream #0:0: Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 29.97 fps, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : FFMP
+      encoder         : Lavc60.5.100 h264_nvenc
+  Metadata:
+    Side data:
+      cpb: bitrate max/min/avg: 0/0/0 buffer size: 0 vbv_delay: N/A
+[mp4 @ 000001941fee7900] Starting second pass: moving the moov atom to the beginning of the file
+frame= 2458 fps= 95 q=21.0 Lsize=  111094kB time=00:01:21.91 bitrate=11110.0kbits/s speed=3.16x    
+video:111064kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.027140%
+DEBUG ExitCode: 0
+DEBUG Invoke-Process
+File: ffmpeg
+Arg: -y -nostats -i 181223.mov.mp4 -i 181223.mov -filter_complex libvmaf=model=version=vmaf_v0.6.1neg\\:name=vmaf_neg -an -f null -
+ArgList:
+
+ffmpeg version N-109952-g52a0852ae6-20230302 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 12.2.0 (crosstool-NG 1.25.0.90_cf9beb1)
+  configuration: --prefix=/ffbuild/prefix --pkg-config-flags=--static --pkg-config=pkg-config --cross-prefix=x86_64-w64-mingw32- --arch=x86_64 --target-os=mingw32 --enable-nonfree --enable-gpl --enable-version3 --disable-debug --disable-w32threads --enable-pthreads --enable-iconv --enable-libxml2 --enable-zlib --enable-libfreetype --enable-libfribidi --enable-gmp --enable-lzma --enable-fontconfig --enable-libvorbis --enable-opencl --disable-libpulse --enable-libvmaf --disable-libxcb --disable-xlib --enable-amf --enable-libaom --enable-libaribb24 --enable-avisynth --enable-chromaprint --enable-libdav1d --enable-libdavs2 --enable-libfdk-aac --enable-ffnvcodec --enable-cuda-llvm --enable-frei0r --enable-libgme --enable-libkvazaar --enable-libass --enable-libbluray --enable-libjxl --enable-libmp3lame --enable-libopus --enable-librist --enable-libssh --enable-libtheora --enable-libvpx --enable-libwebp --enable-lv2 --disable-libmfx --enable-libvpl --enable-openal --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libopenh264 --enable-libopenjpeg --enable-libopenmpt --enable-librav1e --enable-librubberband --enable-schannel --enable-sdl2 --enable-libsoxr --enable-libsrt --enable-libsvtav1 --enable-libtwolame --enable-libuavs3d --disable-libdrm --disable-vaapi --enable-libvidstab --enable-vulkan --enable-libshaderc --enable-libplacebo --enable-libx264 --enable-libx265 --enable-libxavs2 --enable-libxvid --enable-libzimg --enable-libzvbi --extra-cflags=-DLIBTWOLAME_STATIC --extra-cxxflags= --extra-ldflags=-pthread --extra-ldexeflags= --extra-libs=-lgomp --extra-version=20230302
+  libavutil      58.  3.100 / 58.  3.100
+  libavcodec     60.  5.100 / 60.  5.100
+  libavformat    60.  4.100 / 60.  4.100
+  libavdevice    60.  2.100 / 60.  2.100
+  libavfilter     9.  4.100 /  9.  4.100
+  libswscale      7.  2.100 /  7.  2.100
+  libswresample   4. 11.100 /  4. 11.100
+  libpostproc    57.  2.100 / 57.  2.100
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov.mp4':
+  Metadata:
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 11096 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], 11093 kb/s, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.5.100 h264_nvenc
+    major_brand     : isom
+Input #1, mov,mp4,m4a,3gp,3g2,mj2, from '181223.mov':
+  Metadata:
+    major_brand     : qt  
+    minor_version   : 512
+    compatible_brands: qt  
+    encoder         : Lavf60.4.100
+  Duration: 00:01:22.02, start: 0.000000, bitrate: 45174 kb/s
+  Stream #1:0[0x1]: Video: dnxhd (DNXHR LB) (AVdh / 0x68645641), yuv422p(tv, bt709), 1920x1080, 45174 kb/s, SAR 1:1 DAR 16:9, 29.97 fps, 29.97 tbr, 30k tbn (default)
+    Metadata:
+      vendor_id       : FFMP
+      handler_name    : VideoHandler
+      encoder         : Lavc60.5.100 dnxhd
+Stream mapping:
+  Stream #0:0 (h264) -> libvmaf
+  libvmaf:default -> Stream #0:0 (wrapped_avframe)
+Press [q] to stop, [?] for help
+  Stream #1:0 (dnxhd) -> libvmaf
+Output #0, null, to 'pipe:':
+    major_brand     : isom
+    minor_version   : 512
+  Metadata:
+    compatible_brands: isomiso2avc1mp41
+    encoder         : Lavf60.4.100
+  Stream #0:0: Video: wrapped_avframe, yuv420p(tv, bt709, progressive), 1920x1080 [SAR 1:1 DAR 16:9], q=2-31, 200 kb/s, 29.97 fps, 29.97 tbn
+    Metadata:
+      encoder         : Lavc60.5.100 wrapped_avframe
+frame= 2458 fps=9.1 q=-0.0 Lsize=N/A time=00:01:21.98 bitrate=N/A speed=0.305x    
+video:1152kB audio:0kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[Parsed_libvmaf_0 @ 000002532e52a3c0] VMAF score: 96.061989
+DEBUG ExitCode: 0
+**********************
+PowerShell transcript end
+End time: 20230515230352
+**********************

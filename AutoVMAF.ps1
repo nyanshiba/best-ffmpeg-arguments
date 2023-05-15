@@ -9,11 +9,11 @@ param
 $Settings =
 @{
     LogsDir = "./logs"
-    InputFileName = "2020-09-08_22-11-17_wqhd.mp4"
+    InputFileName = "230323.mov"
     FilePath = "ffmpeg"
     DefaultArgument =
     ({
-        "-y -nostats -hwaccel nvdec -hwaccel_output_format cuda -i $($Settings.InputFileName) -an $_ -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart output.mp4"
+        "-y -nostats -hwaccel nvdec -i $($Settings.InputFileName) -an $_ -color_range tv -color_primaries bt709 -color_trc bt709 -colorspace bt709 -movflags +faststart $($Settings.InputFileName).mp4"
     })
     TestArguments =
     @{
@@ -709,6 +709,94 @@ $Settings =
             # constqpやvbr bitrate指定よりvbr cq指定の方が、同じファイルサイズでVMAFが高くなる傾向にあった。
             # cq23-27が適切。
         )
+        "h264nvenc_multipass_2" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 2 -g 120 -bf 2 -pix_fmt yuv420p"
+            # qresがなぜか1.5倍高速で、若干品質もよい
+        )
+        "h264nvenc_tune_2" =
+        @(
+            "-c:v h264_nvenc -preset:v p4 -tune hq -profile:v high -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 1 -aq-strength 8 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 1 -aq-strength 8 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 1 -aq-strength 8 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune ll -profile:v high -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 1 -aq-strength 8 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ull -profile:v high -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 1 -aq-strength 8 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune ull -profile:v high -rc:v vbr -rc-lookahead 0 -spatial-aq 0 -temporal-aq 1 -aq-strength 8 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            # llとullを分ける引数を明示してしまっているためか違いがなく、p4ではなぜかhqのほうがよかった。p7では指定通りの結果になったが、p4 hqを超えられなかった。
+        )
+        "h264nvenc_aq_2" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 0 -aq-strength 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 0 -aq-strength 5 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 0 -aq-strength 8 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 0 -aq-strength 11 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 0 -aq-strength 15 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -aq-strength 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -aq-strength 5 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -aq-strength 8 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -aq-strength 11 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -aq-strength 15 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 1 -aq-strength 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 1 -aq-strength 5 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 1 -aq-strength 8 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 1 -aq-strength 11 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 1 -temporal-aq 1 -aq-strength 15 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            # 複数のソースで-spatial-aq 0 -temporal-aq 1の優位性を確認。aq-strengthはspatial-aqにのみ有効。
+        )
+        "h264nvenc_tune_3" =
+        @(
+            "-c:v h264_nvenc -preset:v p1 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p1 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p2 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p2 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p3 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p3 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p5 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p5 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p6 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p6 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            # いつもの引数を加えたらllとhqも無視されるじゃん
+        )
+        "h264nvenc_tune_4" =
+        @(
+            "-c:v h264_nvenc -preset:v p4 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -temporal-aq 1 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            # hqとllの違いはb_ref_mode
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -temporal-aq 1 -cq 23 -weighted_pred 0 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v vbr -rc-lookahead 1 -temporal-aq 1 -cq 23 -multipass 1 -g 60 -bf 2 -pix_fmt yuv420p"
+        )
+        "h264nvenc_tune_5" =
+        @(
+            "-c:v h264_nvenc -preset:v p4 -tune ll -profile:v high -rc:v cbr -b:v 8M -ldkfs 10 -g 60 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p4 -tune ull -profile:v high -rc:v cbr -b:v 8M -ldkfs 10 -g 60 -bf 2 -pix_fmt yuv420p"
+            # ullはcbrで機能する-ldkfsかな？
+        )
+        "h264nvenc_extra" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 0 -udu_sei 1 -intra-refresh 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -single-slice-intra-refresh 1 -constrained-encoding 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 0 -constrained-encoding 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -udu_sei 1 -single-slice-intra-refresh 1 -g 120 -bf 2 -pix_fmt yuv420p"
+        )
+        "h264nvenc_extra_2" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 0 -udu_sei 1 -intra-refresh 0 -single-slice-intra-refresh 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 1 -udu_sei 0 -intra-refresh 0 -single-slice-intra-refresh 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 1 -udu_sei 1 -intra-refresh 0 -single-slice-intra-refresh 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 1 -udu_sei 1 -intra-refresh 1 -single-slice-intra-refresh 0 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 1 -udu_sei 1 -intra-refresh 1 -single-slice-intra-refresh 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            # -extra_sei 1, -udu_sei 1で結果は変わらなかった。-intra-refresh 1, -single-slice-intra-refresh 1は品質を悪化させた。
+        )
     }
 }
 
@@ -817,13 +905,13 @@ $Settings.TestArguments.$Test | ForEach-Object {
     Invoke-Process -File $Settings.FilePath -Arg (Invoke-Command -ScriptBlock $Settings.DefaultArgument)
 
     # ssim
-    # Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName) -i output.mp4 -filter_complex ssim -an -f null -"
+    # Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName) -i $($Settings.InputFileName).mp4 -filter_complex ssim -an -f null -"
 
     # vmaf
-    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i output.mp4 -i $($Settings.InputFileName) -filter_complex libvmaf=vmaf_v0.6.1.pkl -an -f null -"
+    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName).mp4 -i $($Settings.InputFileName) -filter_complex libvmaf=model=version=vmaf_v0.6.1neg\\:name=vmaf_neg -an -f null -"
 
     # file size
-    "$([math]::round((Get-ChildItem -LiteralPath output.mp4).Length/1MB,2))MB"
+    # "$([math]::round((Get-ChildItem -LiteralPath $($Settings.InputFileName).mp4).Length/1MB,2))MB"
 }
 
 # ログ取り停止
