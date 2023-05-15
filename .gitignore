@@ -1,10 +1,6 @@
-input.mp4
-200103.avi
-200808.avi
-2020-09-08_22-11-17.mp4
-2020-09-08_22-11-17_wqhd.mp4
-2020-09-08_22-11-17_fhd.mp4
-output.mp4
+*.mp4
+*.avi
+*.mov
 vmaf_v0.6.1.pkl
 vmaf_v0.6.1.pkl.model
 csv/
