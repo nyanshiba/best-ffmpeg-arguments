@@ -9,7 +9,7 @@ param
 $Settings =
 @{
     LogsDir = "./logs"
-    InputFileName = "230323.mov"
+    InputFileName = "210723.mov"
     FilePath = "ffmpeg"
     DefaultArgument =
     ({
@@ -960,6 +960,63 @@ $Settings =
             "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 30 -init_qpP 30 -init_qpB 30 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
             # 前回の試行ではfieldmatchフィルタが入っていたりいなかったりと比較に問題があったので、vbr cqとconstqp init_qpを再走させた。
             # 低品質域はvbr cq、高品質域はconstqp init_qpが優秀だった。VMAFが96あたりから逆転する。h264_nvencと比べvbr cqの息切れが早く、hevc_nvencではconstqpを主に使っていくことになるだろう。
+        )
+        "hevcnvenc_multipass_2" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -b_ref_mode 1 -dpb_size 4 -multipass 0 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -b_ref_mode 1 -dpb_size 4 -multipass 2 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # h264_nvencと同様に、品質はほんの若干qresがよい。一方で、qres含め速度差はない。
+        )
+        "hevcnvenc_tune" =
+        @(
+            "-c:v hevc_nvenc -tune hq -preset:v p3 -profile:v main10 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 24 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -tune ll -preset:v p3 -profile:v main10 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 24 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -tune ull -preset:v p3 -profile:v main10 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 24 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # 
+        )
+        "hevcnvenc_qpoffset" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 0 -qp_cr_offset 0 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset -12 -qp_cr_offset -12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset -12 -qp_cr_offset 0 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 0 -qp_cr_offset -12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 0 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 0 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # 小さいほど悪く、大きいほど良い結果に
+        )
+        "hevcnvenc_qpoffset_2" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 0 -qp_cr_offset 0 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset -12 -qp_cr_offset -12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset -12 -qp_cr_offset 0 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 0 -qp_cr_offset -12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 8 -qp_cr_offset 8 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 4 -qp_cr_offset 4 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 0 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 0 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+        )
+        "hevcnvenc_qpoffset_3" =
+        @(
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 11 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 10 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 9 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 11 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 11 -qp_cr_offset 11 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 11 -qp_cr_offset 10 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 11 -qp_cr_offset 9 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 10 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 10 -qp_cr_offset 11 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 10 -qp_cr_offset 10 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 10 -qp_cr_offset 9 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 9 -qp_cr_offset 12 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 9 -qp_cr_offset 11 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 9 -qp_cr_offset 10 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            "-c:v hevc_nvenc -preset:v p7 -profile:v main10 -rc:v constqp -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -weighted_pred 0 -init_qpI 21 -init_qpP 21 -init_qpB 24 -qp_cb_offset 9 -qp_cr_offset 9 -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 60 -bf 3 -pix_fmt yuv420p10le"
+            # -qp_cb_offset 12 -qp_cr_offset 12が最も効率がよく、qp_cr_offsetの方が重要だった
         )
     }
 }

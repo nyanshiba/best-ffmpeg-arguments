@@ -1,4 +1,6 @@
-input.mp4
-output.mp4
+*.mp4
+*.avi
+*.mov
 vmaf_v0.6.1.pkl
 vmaf_v0.6.1.pkl.model
+csv/
