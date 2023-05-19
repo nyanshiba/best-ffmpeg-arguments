@@ -9,7 +9,7 @@ param
 $Settings =
 @{
     LogsDir = "./logs"
-    InputFileName = "230323.mov"
+    InputFileName = "200808.avi"
     FilePath = "ffmpeg"
     DefaultArgument =
     ({
@@ -797,6 +797,58 @@ $Settings =
             "-c:v h264_nvenc -preset:v p7 -tune hq -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -extra_sei 1 -udu_sei 1 -intra-refresh 1 -single-slice-intra-refresh 1 -g 120 -bf 2 -pix_fmt yuv420p"
             # -extra_sei 1, -udu_sei 1で結果は変わらなかった。-intra-refresh 1, -single-slice-intra-refresh 1は品質を悪化させた。
         )
+        "h264nvenc_brefmode" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 0 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 2 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            # b_ref_mode 1がよい
+        )
+        "h264nvenc_weighted" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 1 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            # weighted_pred 1とbfremesは同時に使用できない
+        )
+        "h264nvenc_bframes_4" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 3 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 4 -pix_fmt yuv420p"
+            # bframes 2が適正
+        )
+        "h264nvenc_cq_2" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 25 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 26 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v vbr -cq 23 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 22 -init_qpB 25 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 22 -init_qpB 26 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 22 -init_qpB 27 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v vbr -cq 24 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 23 -init_qpP 23 -init_qpB 26 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 23 -init_qpP 23 -init_qpB 27 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 23 -init_qpB 28 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v vbr -cq 25 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 23 -init_qpP 23 -init_qpB 28 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 23 -init_qpP 24 -init_qpB 28 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v vbr -cq 26 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 25 -init_qpB 29 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 25 -init_qpP 25 -init_qpB 30 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v vbr -cq 27 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 25 -init_qpP 26 -init_qpB 30 -qp_cb_offset 10 -qp_cr_offset 11 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            # cq、効率悪すぎ……？
+        )
+        "h264nvenc_initqpIPB_3" =
+        @(
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 21 -qp_cb_offset 12 -qp_cr_offset 12 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 22 -qp_cb_offset 12 -qp_cr_offset 12 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 21 -init_qpP 21 -init_qpB 23 -qp_cb_offset 12 -qp_cr_offset 12 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 22 -init_qpB 22 -qp_cb_offset 12 -qp_cr_offset 12 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 22 -init_qpB 23 -qp_cb_offset 12 -qp_cr_offset 12 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            "-c:v h264_nvenc -preset:v p7 -profile:v high -rc:v vbr -rc-lookahead 1 -spatial-aq 0 -temporal-aq 1 -rc:v constqp -init_qpI 22 -init_qpP 22 -init_qpB 24 -qp_cb_offset 12 -qp_cr_offset 12 -weighted_pred 0 -coder cabac -b_ref_mode 1 -dpb_size 4 -multipass 1 -g 120 -bf 2 -pix_fmt yuv420p"
+            # -init_qpI 21 -init_qpP 21 -init_qpB 25 は揺るがない
+        )
     }
 }
 
@@ -908,7 +960,7 @@ $Settings.TestArguments.$Test | ForEach-Object {
     # Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName) -i $($Settings.InputFileName).mp4 -filter_complex ssim -an -f null -"
 
     # vmaf
-    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -i $($Settings.InputFileName).mp4 -i $($Settings.InputFileName) -filter_complex libvmaf=model=version=vmaf_v0.6.1neg\\:name=vmaf_neg -an -f null -"
+    Invoke-Process -File $Settings.FilePath -Arg "-y -nostats -hwaccel nvdec -i $($Settings.InputFileName).mp4 -i $($Settings.InputFileName) -filter_complex libvmaf=model=version=vmaf_v0.6.1\\:name=vmaf -an -f null -"
 
     # file size
     # "$([math]::round((Get-ChildItem -LiteralPath $($Settings.InputFileName).mp4).Length/1MB,2))MB"
